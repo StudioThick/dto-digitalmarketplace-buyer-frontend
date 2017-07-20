@@ -1,19 +1,23 @@
 {% import "toolkit/summary-table.html" as summary %}
 {% if brief.status != 'draft' %}
-{% call(item) summary.list_table(
-  [
-    {"label": "Published", "value": brief.publishedAt|dateformat},
-    {"label": "Deadline for asking questions", "value": brief.clarificationQuestionsClosedAt|datetimeformat if brief.clarificationQuestionsClosedAt is defined},
-    {"label": "Closing date for applications", "value": brief.applicationsClosedAt|datetimeformat if brief.applicationsClosedAt is defined}
-  ],
-  caption="Important dates"
-) %}
-
-  {% call summary.row() %}
-    {{ summary.field_name(item.label) }}
-    {{ summary.text(item.value) }}
-  {% endcall %}
-{% endcall %}
+<table class="content-table summary-item-body">
+  <caption class="visuallyhidden">Important dates</caption>
+  <thead class="summary-item-field-headings-visible">
+    <tr></tr>
+  </thead>
+  <tbody>
+    {% for item in [
+      {"label": "Published", "value": brief.publishedAt|dateformat},
+      {"label": "Deadline for asking questions", "value": brief.clarificationQuestionsClosedAt|datetimeformat if brief.clarificationQuestionsClosedAt is defined},
+      {"label": "Closing date for applications", "value": brief.applicationsClosedAt|datetimeformat if brief.applicationsClosedAt is defined}
+    ] %}
+      <tr class="summary-item-row">
+        <td class="summary-item-field-first"><span>{{ item.label }}</span></td>
+        <td class="summary-item-field summary-item-free-text"><span>{{ item.value }}</span></td>
+      </tr>
+    {% endfor %}
+  </tbody>
+</table>
 {% endif %}
 {% for section in content.summary(brief) %}
     {{ summary.heading(section.name, id="opportunity-attributes-{}".format(loop.index)) }}
