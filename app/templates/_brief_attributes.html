@@ -25,10 +25,10 @@
       </thead>
       <tbody>
         {% for item in section.questions %}
-          {% call summary.row() %}
+          <tr class="summary-item-row">
             {{ summary.field_name(item.label) }}
             {{ summary[item.type](item.value) | format_links}}
-          {% endcall %}
+          </tr>
         {% endfor %}
       </tbody>
     </table>
