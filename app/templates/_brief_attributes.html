@@ -15,12 +15,21 @@
      {% if section.summary_page_description %}
           {{ summary.description(section.summary_page_description) }}
         {% endif %}
-    {% call summary.mapping_table(section.name) %}
-      {% for item in section.questions %}
-        {% call summary.row() %}
-          {{ summary.field_name(item.label) }}
-          {{ summary[item.type](item.value) | format_links}}
-        {% endcall %}
-      {% endfor %}
-    {% endcall %}
+    <table class="content-table summary-item-body">
+      <caption class="visuallyhidden">
+        {{ section.name }}
+      </caption>
+      <thead class="summary-item-field-headings-visible">
+        <tr>
+        </tr>
+      </thead>
+      <tbody>
+        {% for item in section.questions %}
+          {% call summary.row() %}
+            {{ summary.field_name(item.label) }}
+            {{ summary[item.type](item.value) | format_links}}
+          {% endcall %}
+        {% endfor %}
+      </tbody>
+    </table>
 {% endfor %}
