@@ -15,21 +15,10 @@
      {% if section.summary_page_description %}
           {{ summary.description(section.summary_page_description) }}
         {% endif %}
-    <table class="content-table summary-item-body">
-      <caption class="visuallyhidden">
-        {{ section.name }}
-      </caption>
-      <thead class="summary-item-field-headings-visible">
-        <tr>
-        </tr>
-      </thead>
-      <tbody>
-        {% for item in section.questions %}
-          <tr class="summary-item-row">
-            {{ summary.field_name(item.label) }}
-            {{ summary[item.type](item.value) | format_links}}
-          </tr>
-        {% endfor %}
-      </tbody>
-    </table>
+    <dl>
+      {% for item in section.questions %}
+        <dt>{{ summary.field_name(item.label) }}</dt>
+        <dd>{{ summary[item.type](item.value) | format_links}}</dd>
+      {% endfor %}
+    </dl>
 {% endfor %}
