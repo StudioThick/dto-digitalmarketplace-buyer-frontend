@@ -15,13 +15,12 @@
      {% if section.summary_page_description %}
           {{ summary.description(section.summary_page_description) }}
         {% endif %}
-    {% call(item) summary.list_table(
-      section.questions,
-      caption=section.name
-    ) %}
-      {% call summary.row() %}
-        {{ summary.field_name(item.label) }}
-        {{ summary[item.type](item.value) | format_links}}
-      {% endcall %}
+    {% call summary.mapping_table(section.name) %}
+      {% for item in section.questions %}
+        {% call summary.row() %}
+          {{ summary.field_name(item.label) }}
+          {{ summary[item.type](item.value) | format_links}}
+        {% endcall %}
+      {% endfor %}
     {% endcall %}
 {% endfor %}
